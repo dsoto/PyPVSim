@@ -1,3 +1,3 @@
 from .pvsim import *
-#from .simulation import *
-
+from .testmod import *
+from .simulation import *

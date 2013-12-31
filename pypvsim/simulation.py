@@ -4,7 +4,7 @@ created in pvsim.py
 '''
 import numpy as np
 import pandas as p
-import pvsim as pvs
+from . import pvsim as pvs
 import datetime as dt
 import scipy.optimize as spo
 
