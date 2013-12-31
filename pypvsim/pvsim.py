@@ -66,7 +66,7 @@ class Solar:
         self.lat = sp.radians(lat)
 
     def day_of_year(self, date):
-        # '%j' gives day of year
+        # '%j' gives day of year (there is no clean method for this)
         return int(date.strftime('%j'))
 
     def declination(self, date):
@@ -74,10 +74,8 @@ class Solar:
         return sp.radians(23.45 * sp.sin(2 * sp.pi * (day_of_year - 81) / 365.0))
 
     def hour_angle(self, date):
-        # TODO: is there a better way to convert time to decimal hours?
-        # '%H' gives hour of day
-        # '%M' gives minutes
-        decimal_hour = float(date.strftime('%H')) + float(date.strftime('%M')) / 60.
+        # TODO: add seconds?
+        decimal_hour = date.hour + date.minute / 60.
         return sp.radians(15 * (decimal_hour - 12))
 
 
