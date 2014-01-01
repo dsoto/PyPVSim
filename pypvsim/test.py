@@ -75,3 +75,13 @@ def test_elevation():
     solar = pypvsim.Solar(lat=40)
 
 # TODO: check angles in general
+def test_load_supply():
+    load   = np.array([0, 0, 0, 0, 1, 2, 2, 1, 0, 0])
+    supply = np.array([0, 0, 1, 1, 2, 2, 0, 0, 0, 0])
+    dt = 1
+
+    assert(pypvsim.excess_demand(load, supply, 1) == 3)
+    assert(pypvsim.excess_supply(load, supply, 1) == 3)
+    assert(pypvsim.fraction_excess_supply(load, supply, dt) == 0.5)
+    assert(pypvsim.fraction_excess_demand(load, supply, dt) == 0.5)
+
