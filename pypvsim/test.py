@@ -85,3 +85,28 @@ def test_load_supply():
     assert(pypvsim.fraction_excess_supply(load, supply, dt) == 0.5)
     assert(pypvsim.fraction_excess_demand(load, supply, dt) == 0.5)
 
+def test_run_simulation():
+    lead_dict = {'type' : 'lead acid',
+             'cost' : 0.14,
+             'battery_efficiency_curve' : {'output_power':[0, 1000],
+                                           'efficiency':[0.75,   0.75]},
+             'DOD' : 0.5,
+             'life' : 2
+             }
+    result = pypvsim.run_simulation(lead_dict,
+                           inverter_type='typical',
+                           load_type='day',
+                           plot=False, verbose=False)
+    assert_almost_equal(result['battery_cost'],
+                        213.46715017)
+    assert_almost_equal(result['battery_size_kWh'],
+                        0.76238267918374858)
+    result = pypvsim.run_simulation(lead_dict,
+                                    inverter_type='typical',
+                                    load_type='night',
+                                    plot=False, verbose=False)
+    assert_almost_equal(result['battery_cost'],
+                        1376.3846808510641)
+    assert_almost_equal(result['battery_size_kWh'],
+                        4.9156595744680853)
+
