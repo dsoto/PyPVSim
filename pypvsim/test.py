@@ -3,12 +3,6 @@ import numpy as np
 import scipy as sp
 from numpy.testing import assert_almost_equal
 
-def test_solar_dummy():
-    solar = pypvsim.Solar()
-    date = np.datetime64('2013-01-01T12:00Z')
-    dbr = solar.direct_beam_radiation(date.astype(object))
-    assert dbr>0.0
-
 def test_solar_declination():
     '''
     declination should be 23.45 degrees on summer solstice
@@ -80,10 +74,10 @@ def test_load_supply():
     supply = np.array([0, 0, 1, 1, 2, 2, 0, 0, 0, 0])
     dt = 1
 
-    assert(pypvsim.excess_demand(load, supply, 1) == 3)
-    assert(pypvsim.excess_supply(load, supply, 1) == 3)
-    assert(pypvsim.fraction_excess_supply(load, supply, dt) == 0.5)
-    assert(pypvsim.fraction_excess_demand(load, supply, dt) == 0.5)
+    assert pypvsim.excess_demand(load, supply, 1) == 3
+    assert pypvsim.excess_supply(load, supply, 1) == 3
+    assert pypvsim.fraction_excess_supply(load, supply, dt) == 0.5
+    assert pypvsim.fraction_excess_demand(load, supply, dt) == 0.5
 
 def test_run_simulation():
     lead_dict = {'type' : 'lead acid',
