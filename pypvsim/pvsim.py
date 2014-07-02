@@ -56,14 +56,19 @@ class Solar:
     '''
     # TODO: decide whether lat and lon go here or in the panel class
     # TODO: longitude to calculate hour angle and adjust for solar noon?
+    # TODO: how will dates be handled on TMY3 series import?
+    # TODO: can there be lazy downloading of the TMY3 so that it isn't
+    # downloaded multiple times during interactive stuff?
+
     lat = sp.radians(0)
     lon = sp.radians(0)
     el_tilt = sp.radians(0)
     az_tilt = sp.radians(0)
     solar_constant = 1.377
 
-    def __init__(self, lat=40):
+    def __init__(self, lat=40, tmy=None):
         self.lat = sp.radians(lat)
+        self.tmy = tmy
 
     def day_of_year(self, date):
         # '%j' gives day of year (there is no clean method for this)
@@ -77,7 +82,6 @@ class Solar:
         # TODO: add seconds?
         decimal_hour = date.hour + date.minute / 60.
         return sp.radians(15 * (decimal_hour - 12))
-
 
     def elevation(self, date):
         # angle between horizontal plane and the sun
@@ -118,9 +122,17 @@ class Solar:
     def air_mass_ratio(self, date):
         return 1 / sin(self.elevation(date))
 
+    # TODO if using TMY3 data, return the DNI for that date
+
     def direct_beam_radiation(self, date):
-        return self.apparent_extraterrestrial_flux(date) * exp(- self.optical_depth(date)
-                                                               * self.air_mass_ratio(date))
+        # TODO if tmy series exists, return DNI
+        if self.tmy == None:
+            return self.apparent_extraterrestrial_flux(date) * exp(- self.optical_depth(date)
+                                                                  * self.air_mass_ratio(date))
+        else:
+            pass
+            # return tmy date, dni
+
 
 
 class Panel:
@@ -131,6 +143,8 @@ class Panel:
     panel
     '''
     # TODO: how to simulate a single and double axis tracking system?
+    # TODO: how to specify panel by DC peak
+
     def __init__(self, solar, area=1, efficiency=0.20, el_tilt=0, az_tilt=0):
         self.area = area
         self.efficiency = efficiency
