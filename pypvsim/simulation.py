@@ -173,7 +173,7 @@ def solve_wrapper(A, output_curve, battery_efficiency_curve, load, panel_efficie
 # create date range to get insolation
 date_start = dt.datetime(2012, 3, 23)
 date_end = dt.datetime(2012, 3, 24)
-rng = p.DateRange(date_start, date_end, offset=p.DateOffset(hours=1))
+rng = p.date_range(date_start, date_end, freq='H')
 
 # create load profile and series object
 # 9, 6, 10
