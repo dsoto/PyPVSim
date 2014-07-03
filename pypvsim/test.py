@@ -37,6 +37,13 @@ def test_panel_incidence_angle():
     assert_almost_equal(panel.incidence_angle(date.astype(object)),
                         0, 1)
 
+    # TODO: what should incidence angle be here?
+    solar = pypvsim.Solar(lat=45)
+    panel = pypvsim.Panel(solar, el_tilt=45, az_tilt=45)
+    date = np.datetime64('2013-03-20T12:00Z')
+    #assert_almost_equal(panel.incidence_angle(date.astype(object)),
+    #                    sp.radians(45), 1)
+
 def test_panel_radiation():
     '''
     angle of zero for normal elevation panel on the equator with sun
