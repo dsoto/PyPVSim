@@ -62,8 +62,8 @@ class Solar:
 
     lat = sp.radians(0)
     lon = sp.radians(0)
-    el_tilt = sp.radians(0)
-    az_tilt = sp.radians(0)
+    #el_tilt = sp.radians(0)
+    #az_tilt = sp.radians(0)
     solar_constant = 1.377
 
     def __init__(self, lat=40, tmy=None):
@@ -148,10 +148,10 @@ class Panel:
     def __init__(self, solar, area=1, efficiency=0.20, el_tilt=0, az_tilt=0):
         self.area = area
         self.efficiency = efficiency
-        #self.el_tilt = sp.radians(el_tilt)
-        #self.az_tilt = sp.radians(az_tilt)
-        self.el_tilt = el_tilt
-        self.az_tilt = az_tilt
+        self.el_tilt = sp.radians(el_tilt)
+        self.az_tilt = sp.radians(az_tilt)
+        #self.el_tilt = el_tilt
+        #self.az_tilt = az_tilt
         self.solar = solar
 
     def incidence_angle(self, date):
